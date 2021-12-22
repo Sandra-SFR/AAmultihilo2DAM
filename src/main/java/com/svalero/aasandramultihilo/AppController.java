@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -54,6 +55,11 @@ public class AppController {
         }
     }
 
+    @FXML
+    public void stopAllDownloads() {
+        for (DownloadController downloadController : allDownloads.values())
+            downloadController.stop();
+    }
 
     //Metodo para importar descargas desde un fichero elegido por el usuario y ponerlas en cola:
     @FXML
@@ -73,8 +79,17 @@ public class AppController {
     }
 
     @FXML
-    public void stopAllDownloads() {
-        for (DownloadController downloadController : allDownloads.values())
-            downloadController.stop();
+    public String directoryChooser(){
+
+        DirectoryChooser directoryChooser =new DirectoryChooser();
+        directoryChooser.setInitialDirectory(new File(directorio));
+
+        File selectedDirectory = directoryChooser.showDialog(null);
+        System.out.println(selectedDirectory.getAbsolutePath());
+
+        directorio = String.valueOf(selectedDirectory);
+
+        return directorio;
     }
+
 }
