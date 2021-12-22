@@ -4,6 +4,7 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,7 @@ public class DownloadController implements Initializable {
     public Label lbStatus;
     public ProgressBar pbProgress;
     private String urlText;
+    public Button btCloseDownload;
     private DownloadTask downloadTask;
 
     AppController appController = new AppController();
@@ -83,5 +85,16 @@ public class DownloadController implements Initializable {
 
     public String getUrlText() {
         return urlText;
+    }
+
+    //metodo para cerrar las pestañas del boton btCloseDownload
+    @FXML
+    public void closeDownload(ActionEvent event){
+
+        btCloseDownload = (Button) event.getSource();
+        Scene btScene = btCloseDownload.getScene();
+
+        appController.tpDownloads = (TabPane) ((Scene) btScene).lookup("#tpDownloads");
+        appController.tpDownloads.getTabs().remove(1);
     }
 }
