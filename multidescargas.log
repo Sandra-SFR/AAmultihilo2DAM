@@ -1,0 +1,2 @@
+20:03:48.469 [JavaFX Application Thread] INFO  com.svalero.aasandramultihilo.DownloadController - Descarga https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.14.21.tar.xz creada
+20:03:48.492 [JavaFX Application Thread] INFO  com.svalero.aasandramultihilo.DownloadController - Descarga https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.220.tar.xz creada
