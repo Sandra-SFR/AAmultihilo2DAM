@@ -6,9 +6,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AppController {
@@ -45,6 +49,24 @@ public class AppController {
 
             allDownloads.put(url, downloadController);
 
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+
+    //Metodo para importar descargas desde un fichero elegido por el usuario y ponerlas en cola:
+    @FXML
+    public void imports() {
+
+        //Se pide el fichero al usuario:
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(directorio));
+        File file = fileChooser.showOpenDialog(null);
+
+        try {
+            List<String> urls = Files.readAllLines(file.toPath()); // Lee el fichero y carga linea a linea en un List
+            urls.forEach(url -> launchDownload(url)); //Se recoge linea a linea del archivo y los lanza como descarga
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
