@@ -9,7 +9,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.HashMap;
@@ -19,6 +21,8 @@ import java.util.Map;
 public class AppController {
     public TextField tfUrl;
     public TabPane tpDownloads;
+    public ListView lvDownloads;
+    public Button btDownload;
     public String directorio="descargas";
 
     private Map<String, DownloadController> allDownloads;
@@ -92,4 +96,33 @@ public class AppController {
         return directorio;
     }
 
+    //metodo para leer el historial de descargas y listarlas
+    @FXML
+    public void historial(ActionEvent event) {
+
+        String bufferLine;
+        File log = new File("multidescargas.log");//Asignamos la ruta del archivo.log del registro
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(log));//leemos lo que hay en el archivo
+
+            while ((bufferLine = br.readLine())!=null){//mientras no lea una linea vacia
+                lvDownloads.getItems().add(bufferLine.substring(bufferLine.lastIndexOf("Des") -3));//Añadimos las lineas y recortamos el texto para que se vea mas claro el registro
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public String toString() {
+        return "AppController{" +
+                "tfUrl=" + tfUrl +
+                ", btDownload=" + btDownload +
+                ", tpDownloads=" + tpDownloads +
+                ", directorio='" + directorio + '\'' +
+                ", allDownloads=" + allDownloads +
+                '}';
+    }
 }
